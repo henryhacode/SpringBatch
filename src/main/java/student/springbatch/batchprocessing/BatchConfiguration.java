@@ -68,6 +68,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1(JdbcBatchItemWriter<OutputPerson> writer) {
         return stepBuilderFactory.get("step1")
+                .allowStartIfComplete(true)
                 .<InputPerson, OutputPerson> chunk(10)
                 .reader(reader())
                 .processor(processor())
