@@ -23,6 +23,10 @@ spring:
     init:
       mode: always
 
+  batch:
+    jdbc:
+      initialize-schema: always
+
   main:
     allow-bean-definition-overriding: true
 
