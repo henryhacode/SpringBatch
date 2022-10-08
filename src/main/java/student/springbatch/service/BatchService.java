@@ -7,6 +7,7 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class BatchService {
     private final JobLauncher jobLauncher;
     private final Job job;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public BatchStatus runBatch() {
         Map<String, JobParameter> parameters = new HashMap<>();
         try {
