@@ -14,10 +14,12 @@ public class PersonItemProcessor implements ItemProcessor<InputPerson, OutputPer
     public OutputPerson process(final InputPerson person) {
         String firstName = person.getFirstName().toUpperCase();
         String lastName = person.getLastName().toUpperCase();
+        double gpa = person.getGpa();
         int age = person.getAge();
         LocalDate dob = now().minusYears(age).withMonth(1).withDayOfMonth(1);
 
-        final OutputPerson transformedPerson = new OutputPerson(firstName, lastName, dob.toString());
+
+        final OutputPerson transformedPerson =  new OutputPerson(firstName, lastName, String.valueOf(gpa), dob.toString());
         log.info("Converting (" + person + ") into (" + transformedPerson + ")");
 
         return transformedPerson;

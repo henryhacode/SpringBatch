@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class InputPerson {
     private String firstName;
     private String lastName;
+    private double gpa;
     private int age;
 }
