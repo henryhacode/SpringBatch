@@ -7,17 +7,19 @@ import Welcome from './components/Welcome/Welcome';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './auth/keycloak';
 import PrivateRoute from './auth/PrivateRoute';
+import { storeToken } from './utils/Utils';
 
 function App() {
   const onEventHandler = async (event, error) => {
     console.log(event);
     if (event === 'onAuthSuccess') {
       if (keycloak.authenticated) {
-          console.log(keycloak);
-          console.log(keycloak.token);
-          console.log(keycloak.tokenParsed);
+        console.log(keycloak);
+        console.log(keycloak.token);
+        console.log(keycloak.tokenParsed);
+        storeToken(keycloak.token);
       }
-  }
+    }
   }
 
   return (

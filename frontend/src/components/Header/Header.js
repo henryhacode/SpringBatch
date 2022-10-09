@@ -1,5 +1,6 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, CssBaseline, Stack, Toolbar, Typography } from "@mui/material";
 import { useKeycloak } from "@react-keycloak/web";
+import { Link } from "react-router-dom";
 
 export default function (props) {
   const { keycloak } = useKeycloak();
@@ -16,10 +17,21 @@ export default function (props) {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed">
+          <CssBaseline />
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h4">
               Spring Batch
             </Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            <Stack spacing={2} direction="row">
+              <div>
+                <Link to="/">Home</Link>
+              </div>
+              <div>
+                {keycloak.authenticated && <Link to="/batch">Batch</Link>}
+              </div>
+            </Stack>
+            <Box sx={{ flexGrow: 1 }} />
             <div>
               {!keycloak.authenticated && <Button color="inherit" onClick={login}>Login</Button>}
             </div>
