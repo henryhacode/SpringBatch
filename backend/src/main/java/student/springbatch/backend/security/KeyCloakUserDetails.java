@@ -21,13 +21,14 @@ public class KeyCloakUserDetails implements UserDetails {
         DecodedJWT decodedJWT = JWT.decode(token);
         username = decodedJWT.getClaim("email").asString();
         List<String> roles = new ArrayList<>();
-        if (decodedJWT.getClaim("roles") != null) {
+        if (!decodedJWT.getClaim("roles").isMissing()) {
             roles = decodedJWT.getClaim("roles").asList(String.class);
-        } else if (decodedJWT.getClaim("realm_access").asMap().get("roles") != null) {
+        } else if (!decodedJWT.getClaim("realm_access").isMissing() &&
+                decodedJWT.getClaim("realm_access").asMap().get("roles") != null) {
             roles = (List<String>) decodedJWT.getClaim("realm_access").asMap().get("roles");
         }
 
-        if (roles.contains("ADMIN")) {
+        if (roles != null && roles.contains("ADMIN")) {
             role = "ADMIN";
         } else {
             role = "VIEWER";
